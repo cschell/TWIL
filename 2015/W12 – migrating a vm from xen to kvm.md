@@ -69,19 +69,26 @@ chroot /mnt/vm
 
 ### Install Grub
 
-**Optional: **In order to download and install grub, I first had to edit the settings to fit the new infrastructure:
+**Optional:** In order to download and install grub, I first had to edit the settings to fit the new infrastructure:
 
   - check `/etc/apt/sources.list`
   - check `/etc/resolve.conf` – if it contains a DNS-server which is not available anymore, you can use 8.8.8.8 as a quick fix
 
 
-Now install Grub2 and install it to the disk
+Dealing with Grub is a bit tricky and you might need to play (and google) around with these settings. At first you need to install Grub2 and install it to the disk
 
 ```bash
 aptitude update
 aptitude install grub2
+```
 
-grub-install /dev/loop0
+Than set the `/boot/grub/device.map`:
+
+```bash
+cat > /mnt/boot/grub/device.map <<EOF
+(hd0) /dev/loop0
+(hd0,1) /dev/loop1
+EOF
 ```
 
 Finally I had to remove a setting, that attaches the vm to some kind of Xen terminal – since this environment won't be there anymore, this setting would prevent the VM from booting:
@@ -92,9 +99,10 @@ Finally I had to remove a setting, that attaches the vm to some kind of Xen term
 I've also read that you have to check `/etc/fstab` to point at the correct device. But in my case it referenced the partitions' UUIDs (and not a path like `/dev/xvda1`), so I hadn't to do anything.
 
 
-Update Grub
+Install and update Grub:
 
 ```bash
+grub-install /dev/loop0
 update-grub
 ```
 
@@ -134,9 +142,12 @@ Before you setup the new VM, move the image to the path you want it to store per
 virt-install --name TestVM01 --ram 512 -f /path/to/TestVM01.img --import --vnc --connect qemu:///system
 ```
 
-Now you can connect to it via VNC (get the port using `virsh vncdisplay TestVM01`) and check if everything is okay.
+You now need to connect to the vm **as quickly as you can** via VNC (get the port using `virsh vncdisplay TestVM01`). In my cases I had to press `e` in the bootloader and remove the lines containing `loop1` in order to get Debian booting. Did the VM boot successfully you need to reinstall grub again:
 
-A problem I sometimes run into: After connecting via VNC getting a black screen saying that something is off with grub. In that case reset the VM and reconnect your VNC **as quick as you can** so you're there if Grub's bootscreen appears. Press `e` to edit the boot command and remove `console=hvc0`. Press `ctrl + x` to proceed.
+```bash
+grub-install /dev/vda
+update-grub
+```
 
 That did the trick for me! If you have any thoughts or tipps on this, please let me know!
 
