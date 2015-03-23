@@ -52,7 +52,7 @@ Xen doesn't need Grub as bootloader, so we have to install it. To do so, we have
 
 ```bash
 losetup /dev/loop0 TestVM01.img
-kpartx -v -a /dev/loop0
+kpartx -v -a /dev/loop0 # maybe you have to install that one (apt-get install kpartx)
 losetup /dev/loop1 /dev/mapper/loop0p1
 mkdir -p /mnt/vm
 mount /dev/loop1 /mnt/vm
