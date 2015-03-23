@@ -95,7 +95,7 @@ I've also read that you have to check `/etc/fstab` to point at the correct devic
 Update Grub
 
 ```bash
-grub-update
+update-grub
 ```
 
 ### Configure Networking
