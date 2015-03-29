@@ -1,3 +1,5 @@
+# Rediscovering `tcpdump`
+
 This week I rediscovered `tcpdump`. Like Wireshark, this command displays your network traffic. Unlike Wireshark, it’s a shell command and is therefor a more convenient choice for server administration (which I do a lot lately).
 
 The easiest way to use tcpdump is to just run `sudo tcpdump` from your terminal.  Depending on your current traffic it will flood your screen with every request going out or coming in.
