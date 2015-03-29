@@ -1,4 +1,4 @@
-# TWIL W12 – Migrating a virtual machine from Xen to KVM
+# Migrating a virtual machine from Xen to KVM
 
 My company is migrating to a new infrastructure for its virtual machines and switching from XenServer to KVM. This week we had to tackle the migration of existing Xen-VMs to the new hypervisor – turned out that this has been trickier than I thought it would be!
 
