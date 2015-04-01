@@ -13,7 +13,7 @@ This will show you what’s going on when you send an e-mail from your local mac
 Another interesting usecase is analyzing HTML logins:
 
 1. run `sudo tcpdump -A dst host runnable.com`
-2. visit a [dummy login](http://web-5fcbcf19-ebdc-4d56-a736-624729e9d85f.runnable.com/) I’ve made on [runnable.com](runnable.com)
+2. visit a [dummy login](http://runnable.com/VRxDxTW9TKMwmEcG/output/) I’ve made on [runnable.com](runnable.com)
 3. submit random data
 4. watch your tcpdump output
 5. see, [why it’s a good idea to use SSL](http://get.chrisschell.de/10N2D)
