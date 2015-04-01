@@ -85,7 +85,7 @@ aptitude install grub2
 Than set the `/boot/grub/device.map`:
 
 ```bash
-cat > /mnt/boot/grub/device.map <<EOF
+cat > /boot/grub/device.map <<EOF
 (hd0) /dev/loop0
 (hd0,1) /dev/loop1
 EOF
